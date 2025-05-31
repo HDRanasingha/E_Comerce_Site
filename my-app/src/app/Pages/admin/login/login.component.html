@@ -4,14 +4,28 @@
       <h2>Welcome Back</h2>
       <p>Please login to your account</p>
     </div>
-    <form>
+    <form (ngSubmit)="onLogin()">
       <div class="input-group">
         <label for="email">Email</label>
-        <input id="email" type="email" placeholder="Enter your email" required>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          required
+          [(ngModel)]="loginObj.email"
+          name="email"
+        >
       </div>
       <div class="input-group">
         <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Enter your password" required>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          required
+          [(ngModel)]="loginObj.password"
+          name="password"
+        >
       </div>
       <button class="login-btn" type="submit">Login</button>
       <div class="login-footer">
