@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-8">
+  <div [ngClass]="isSidePanelVisible ? 'col-8' : 'col-12'">
     <div class="card">
       <div class="card-header bg-primary text-white">
         <div class="row">
@@ -7,29 +7,88 @@
             Product List
           </div>
           <div class="col-6 text-end">
-            <button class="btn btn-sm btn-success">New</button>
+            <button class="btn btn-sm btn-success" (click)="openSidePanel()">New</button>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <!-- Product list content goes here -->
+        <div class="row">
+          <div class="col-3" *ngFor="let product of [1,2,3]">
+            <div class="card mb-3">
+              <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text.</p>
+                <a href="#" class="btn btn-primary">See Profile</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-4">
+  <div class="col-4" *ngIf="isSidePanelVisible">
     <div class="card">
       <div class="card-header bg-primary text-white">
         <div class="row">
           <div class="col-6">
-            New Product List
+            New Product
           </div>
           <div class="col-6 text-end">
-            <button class="btn btn-sm btn-success">New</button>
+            <button class="btn btn-sm btn-danger" (click)="closeSidePanel()">Close</button>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <!-- New product form or content goes here -->
+        <div class="row mb-2">
+          <div class="col-6">
+            <label>SKU</label>
+            <input type="text" [(ngModel)]="productObj.productSku" class="form-control">
+          </div>
+          <div class="col-6">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="productObj.productName" class="form-control">
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-6">
+            <label>Short Name</label>
+            <input type="text" [(ngModel)]="productObj.productShortName" class="form-control">
+          </div>
+          <div class="col-6">
+            <label>Price</label>
+            <input type="number" [(ngModel)]="productObj.productPrice" class="form-control">
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-12">
+            <label>Description</label>
+            <textarea [(ngModel)]="productObj.productDescription" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-6">
+            <label>Delivery Time Span</label>
+            <input type="text" [(ngModel)]="productObj.deliveryTimeSpan" class="form-control">
+          </div>
+          <div class="col-6">
+            <label>Category ID</label>
+            <input type="number" [(ngModel)]="productObj.categoryId" class="form-control">
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-12">
+            <label>Product Image URL</label>
+            <input type="text" [(ngModel)]="productObj.productImageUrl" class="form-control">
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-12">
+            <label>Created Date</label>
+            <input type="date" [(ngModel)]="productObj.createdDate" class="form-control">
+          </div>
+        </div>
+        <!-- Add more fields as needed -->
       </div>
     </div>
   </div>
