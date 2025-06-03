@@ -3,9 +3,7 @@
     <div class="card">
       <div class="card-header bg-primary text-white">
         <div class="row">
-          <div class="col-6">
-            Product List
-          </div>
+          <div class="col-6">Product List</div>
           <div class="col-6 text-end">
             <button class="btn btn-sm btn-success" (click)="openSidePanel()">New</button>
           </div>
@@ -13,13 +11,14 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-3" *ngFor="let product of [1,2,3]">
+          <div class="col-3" *ngFor="let product of productsList; let i = index">
             <div class="card mb-3">
-              <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+              <img class="card-img-top" [src]="product.productImageUrl" alt="Card image">
               <div class="card-body">
-                <h4 class="card-title">John Doe</h4>
-                <p class="card-text">Some example text.</p>
-                <a href="#" class="btn btn-primary">See Profile</a>
+                <h4 class="card-title">{{product.productName}}</h4>
+                <p class="card-text">{{product.categoryName}}</p>
+                <button class="btn btn-primary btn-sm me-2" (click)="onedit(product, i)">Edit</button>
+                <button class="btn btn-danger btn-sm" (click)="ondelete(i)">Delete</button>
               </div>
             </div>
           </div>
@@ -31,9 +30,7 @@
     <div class="card">
       <div class="card-header bg-primary text-white">
         <div class="row">
-          <div class="col-6">
-            New Product
-          </div>
+          <div class="col-6">{{ isEditMode ? 'Edit Product' : 'New Product' }}</div>
           <div class="col-6 text-end">
             <button class="btn btn-sm btn-danger" (click)="closeSidePanel()">Close</button>
           </div>
@@ -72,8 +69,12 @@
             <input type="text" [(ngModel)]="productObj.deliveryTimeSpan" class="form-control">
           </div>
           <div class="col-6">
-            <label>Category ID</label>
-            <input type="number" [(ngModel)]="productObj.categoryId" class="form-control">
+            <label>Category</label>
+            <select [(ngModel)]="productObj.categoryId" class="form-select">
+              <option *ngFor="let cate of categoryList" [value]="cate.categoryId">
+                {{cate.categoryName}}
+              </option>
+            </select>
           </div>
         </div>
         <div class="row mb-2">
@@ -88,7 +89,15 @@
             <input type="date" [(ngModel)]="productObj.createdDate" class="form-control">
           </div>
         </div>
-        <!-- Add more fields as needed -->
+        <div class="row">
+          <div class="col-6">
+            <button class="btn btn-success" (click)="resetForm()">Reset</button>
+          </div>
+          <div class="col-6">
+            <button *ngIf="!isEditMode" class="btn btn-success" (click)="onsave()">Create Product</button>
+            <button *ngIf="isEditMode" class="btn btn-primary" (click)="onupdate()">Update Product</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
