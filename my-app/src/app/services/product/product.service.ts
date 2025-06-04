@@ -1,22 +1,24 @@
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
- import { Injectable } from '@angular/core';
 import { Constant } from '../constant/constant';
 
- @Injectable({
-   providedIn: 'root'
- })
- export class ProductService {
+@Injectable({ providedIn: 'root' })
+export class ProductService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http:HttpClient) { }
-
-  getCategory() {
-    return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_CATEGORY);
-  }
-getProducts() {
-    return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_PRODUCT);
+  getProducts() {
+    return this.http.get(`${Constant.API_END_POINT}/${Constant.METHODS.GET_ALL_PRODUCT}`);
   }
 
-  saveProduct(obj:any) {
-    return this.http.post(Constant.API_END_POINT + Constant.METHODS.GET_ALL_CATEGORY,obj);
+  saveProduct(product: any) {
+    return this.http.post(`${Constant.API_END_POINT}/${Constant.METHODS.CREATE_Product}`, product);
   }
- }
+
+  updateProduct(id: number, product: any) {
+    return this.http.put(`${Constant.API_END_POINT}/${Constant.METHODS.CREATE_Product}/${id}`, product);
+  }
+
+  deleteProduct(id: number) {
+    return this.http.delete(`${Constant.API_END_POINT}/${Constant.METHODS.CREATE_Product}/${id}`);
+  }
+}
